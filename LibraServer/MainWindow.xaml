@@ -94,6 +94,7 @@
             <RowDefinition Height="AUTO"/>
             <!--<RowDefinition Height="AUTO"/>-->
             <RowDefinition/>
+            <RowDefinition Height="AUTO"/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0" Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Left">
             <MenuItem Header="文件(_F)" ItemContainerStyle="{StaticResource AccentColorMenuItemStyle}">
@@ -145,5 +146,8 @@
                 </Grid>
             </controls:MetroTabItem>
         </controls:MetroAnimatedTabControl>
+        <StatusBar Grid.Row="2">
+            <Button Content="test"/>
+        </StatusBar>
     </Grid>
 </controls:MetroWindow>

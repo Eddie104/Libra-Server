@@ -129,7 +129,7 @@
                         <Label Content="HTML5地址:"/>
                         <TextBox Width="280" VerticalAlignment="Center" Text="http://3zhongjie.com/egretTest/3/index.html" Name="html5TextBox"/>
                         <Label Content="IP地址:"/>
-                        <TextBox Width="100" VerticalAlignment="Center" Text="127.0.0.10" Name="ipTextBox"/>
+                        <TextBlock Width="100" VerticalAlignment="Center" Text="192.168.36.36" Name="ipTextBlock"/>
                         <Label Content="端口:"/>
                         <controls:NumericUpDown Value="255" Minimum="0" Maximum="65535" Name="portNumeric"/>
                         <Button Content="启动" Click="OnStartServer"/>

@@ -104,7 +104,6 @@ var Main = (function (_super) {
         okBtn.addEventListener(egret.TouchEvent.TOUCH_END, this.onOKTouchEnded, this);
         this._okBtn = okBtn;
         var url = location.href;
-        // http://88.8.8.90:3001/index.html?ip=127.0.0.10&port=2005
         var param = url.split("?")[1].split("&");
         for (var i in param) {
             var keyVal = param[i].split("=");
@@ -117,24 +116,15 @@ var Main = (function (_super) {
                     break;
             }
         }
-        //        if(url.indexOf("?") != -1) {
-        //            var urlPara = "&" + url.split("?")[1];
-        //            var reg = new RegExp("\&" + paraName + "\=.*?(?:\&|$)");
-        //            var result = reg.exec(urlPara);
-        //            if(result) {
-        //                var value: string = result[0];
-        //                return value.split("&")[1].split("=")[1];
-        //            }
-        //        }   
     };
     p.onOKTouchEnded = function (evt) {
         if (!this._socket) {
             this._socket = new Socket();
-            egret.log("开始连接,ip:" + this._ip + ", port:" + this._port);
+            console.log("开始连接,ip:" + this._ip + ", port:" + this._port);
             this._socket.connect(this._ip, this._port);
         }
         else {
-            this._socket.send("随便发点东西" + Math.random());
+            this._socket.send("发个随机数:" + Math.random());
         }
     };
     return Main;

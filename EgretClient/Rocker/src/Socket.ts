@@ -21,18 +21,17 @@ class Socket {
 
     private onSocketOpen(): void {
         var cmd = "Hello Egret WebSocket";
-//        console.log("连接成功，发送数据：" + cmd);
-        egret.log("发送数据：" + cmd);
+        console.log("发送数据：" + cmd);
         this._socket.writeUTF(cmd);
     }
 
     private onReceiveMessage(e: egret.Event): void {
         var msg = this._socket.readUTF();
-        egret.log("收到数据：" + msg);
+        console.log("收到数据：" + msg);
     }
 
     public send(msg: string) {
-        egret.log("连接成功，发送数据：" + msg);
+        console.log("连接成功，发送数据：" + msg);
         this._socket.writeUTF(msg);
     }
 }

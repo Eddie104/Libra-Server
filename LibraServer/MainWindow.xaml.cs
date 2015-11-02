@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace LibraServer
 {
@@ -22,6 +24,8 @@ namespace LibraServer
 
             webSocketServer = new Server();
             webSocketServer.OnLog += OnWebSocketServerLog;
+
+            ipTextBlock.Text = GetIP();
         }
 
         private void OnWebSocketServerLog(string log)
@@ -43,7 +47,7 @@ namespace LibraServer
 
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
-            if(webSocketServer.Start(ipTextBox.Text, (int)portNumeric.Value))
+            if(webSocketServer.Start(ipTextBlock.Text, (int)portNumeric.Value))
             {
                 ShowImgCode(webSocketServer.CreateImgCode(html5TextBox.Text));
             }
@@ -52,6 +56,34 @@ namespace LibraServer
         private void OnStopServer(object sender, RoutedEventArgs e)
         {
             webSocketServer.Stop();
+        }
+
+        private string GetIP()
+        {
+            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;
+            foreach (NetworkInterface adapter in adapters)
+            {
+                if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+                {
+                    // 找到当前正在连接的网卡
+                    if (adapter.OperationalStatus == OperationalStatus.Up)
+                    {
+                        UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;
+                        if (uniCast.Count > 0)
+                        {
+                            foreach (UnicastIPAddressInformation uni in uniCast)
+                            {
+                                //得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4
+                                if (uni.Address.AddressFamily == AddressFamily.InterNetwork)
+                                {
+                                    return uni.Address.ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace LibraServer
 
         private void OnStartServer(object sender, RoutedEventArgs e)
         {
-            if(webSocketServer.Start(ipTextBlock.Text, (int)portNumeric.Value))
+            if (webSocketServer.Start(ipTextBlock.Text, (int)portNumeric.Value))
             {
                 ShowImgCode(webSocketServer.CreateImgCode(html5TextBox.Text));
             }

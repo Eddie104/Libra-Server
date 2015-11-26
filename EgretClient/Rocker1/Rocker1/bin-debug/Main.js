@@ -95,17 +95,23 @@ var Main = (function (_super) {
         var ip = "";
         var port = 0;
         var url = location.href;
-        var param = url.split("?")[1].split("&");
-        for (var i in param) {
-            var keyVal = param[i].split("=");
-            switch (keyVal[0]) {
-                case "ip":
-                    ip = keyVal[1];
-                    break;
-                case "port":
-                    port = keyVal[1];
-                    break;
+        var a = url.split("?");
+        if (a.length > 1) {
+            var param = a[1].split("&");
+            for (var i in param) {
+                var keyVal = param[i].split("=");
+                switch (keyVal[0]) {
+                    case "ip":
+                        ip = keyVal[1];
+                        break;
+                    case "port":
+                        port = keyVal[1];
+                        break;
+                }
             }
+        }
+        else {
+            console.warn("没有ip和port参数");
         }
         this._container = new RockContainer(ip, port);
         this.stage.addChild(this._container);

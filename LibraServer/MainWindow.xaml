@@ -127,7 +127,7 @@
                     <WrapPanel Grid.Row="0">
                         <!--http://88.8.8.90:3001/index.html?ip=127.0.0.10&port=2005-->
                         <Label Content="HTML5地址:"/>
-                        <TextBox Width="280" VerticalAlignment="Center" Text="http://3zhongjie.com/egretTest/3/index.html" Name="html5TextBox"/>
+                        <TextBox Width="280" VerticalAlignment="Center" Text="http://77.100.10.19:3001/index.html" Name="html5TextBox"/>
                         <Label Content="IP地址:"/>
                         <TextBlock Width="100" VerticalAlignment="Center" Text="192.168.36.36" Name="ipTextBlock"/>
                         <Label Content="端口:"/>

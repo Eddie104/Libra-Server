@@ -20,9 +20,8 @@ class Socket {
     }
 
     private onSocketOpen(): void {
-        var cmd = "Hello Egret WebSocket";
-        console.log("发送数据：" + cmd);
-        this._socket.writeUTF(cmd);
+        console.log("webSocket连接成功");
+//        this._socket.writeUTF("connectCompleted");
     }
 
     private onReceiveMessage(e: egret.Event): void {
@@ -31,7 +30,12 @@ class Socket {
     }
 
     public send(msg: string) {
-        console.log("连接成功，发送数据：" + msg);
-        this._socket.writeUTF(msg);
+        if(this._socket.connected) {
+            console.log("连接成功，发送数据：" + msg);
+            this._socket.writeUTF(msg);
+            this._socket.flush();
+        }else{
+            console.log("WebSocket未连接成功");
+        }
     }
 }

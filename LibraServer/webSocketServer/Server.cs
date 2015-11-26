@@ -25,6 +25,14 @@ namespace LibraServer.webSocketServer
 
         private int port = 0;
 
+        private int upPressed = 0;
+
+        private int upReleased = 0;
+
+        private int downPressed = 0;
+
+        private int downReleased = 0;
+
         public Server()
         {
             ws = new WebSocketServer();//实例化WebSocketServer
@@ -85,9 +93,27 @@ namespace LibraServer.webSocketServer
 
         private void OnNewMessageReceived(WebSocketSession session, string value)
         {
-            var msg = string.Format("{0:HH:MM:ss} {1}发送消息: {2}", DateTime.Now, GetSessionName(session), value);
-            OnLog(msg);
-            SendToAll(session, msg);
+            //var msg = string.Format("{0} {1}发送消息: {2}", DateTime.Now.ToLocalTime(), GetSessionName(session), value);
+            //OnLog(msg);
+            //SendToAll(session, msg);
+            switch (value)
+            {
+                case "upPressed":
+                    upPressed++;
+                    break;
+                case "upReleased":
+                    upReleased++;
+                    break;
+                case "downPressed":
+                    downPressed++; 
+                    break;
+                case "downReleased":
+                    downReleased++;
+                    break;
+                case "back":
+                    OnLog(string.Format("upPessed = {0}, upReleased = {1}, downPressed = {2}, downReleased = {3}", upPressed, upReleased, downPressed, downReleased));
+                    break;
+            }
         }
 
         private void OnSessionClosed(WebSocketSession session, CloseReason value)

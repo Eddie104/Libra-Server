@@ -7,6 +7,7 @@ var Btn = (function (_super) {
     __extends(Btn, _super);
     function Btn(resName) {
         _super.call(this);
+        this._isPressed = false;
         this.touchEnabled = true;
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onTouchBegan, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onTouchEnded, this);
@@ -16,14 +17,20 @@ var Btn = (function (_super) {
     }
     var d = __define,c=Btn;p=c.prototype;
     p.onTouchBegan = function (evt) {
-        //        this._bmd.texture = RES.getRes("btn_down");
+        this._isPressed = true;
+        this.dispatchEvent(new egret.Event("pressed"));
     };
     p.onTouchEnded = function (evt) {
-        //        this._bmd.texture = RES.getRes("btn_normal");
-        this.dispatchEvent(new egret.Event("clicked"));
+        if (this._isPressed) {
+            this._isPressed = false;
+            this.dispatchEvent(new egret.Event("released"));
+        }
     };
     p.onTouchReleasedOutside = function (evt) {
-        //        this._bmd.texture = RES.getRes("btn_normal");
+        if (this._isPressed) {
+            this._isPressed = false;
+            this.dispatchEvent(new egret.Event("releasedOut"));
+        }
     };
     return Btn;
 })(egret.DisplayObjectContainer);

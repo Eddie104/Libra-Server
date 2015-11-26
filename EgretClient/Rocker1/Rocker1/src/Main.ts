@@ -110,17 +110,22 @@ class Main extends egret.DisplayObjectContainer {
         var ip: string = "";
         var port: number = 0;
         var url = location.href;
-        var param: string[] = url.split("?")[1].split("&");
-        for(var i in param) {
-            var keyVal: string[] = param[i].split("=");
-            switch(keyVal[0]) {
-                case "ip":
-                    ip = keyVal[1];
-                    break;
-                case "port":
-                    port = <number><any>keyVal[1];
-                    break;
-            }
+        var a: string[] = url.split("?");
+        if(a.length > 1){
+            var param: string[] = a[1].split("&");
+            for(var i in param) {
+                var keyVal: string[] = param[i].split("=");
+                switch(keyVal[0]) {
+                    case "ip":
+                        ip = keyVal[1];
+                        break;
+                    case "port":
+                        port = <number><any>keyVal[1];
+                        break;
+                }
+            }       
+        }else{
+            console.warn("没有ip和port参数");
         }
         
         this._container = new RockContainer(ip, port);

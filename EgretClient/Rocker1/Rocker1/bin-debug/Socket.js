@@ -15,17 +15,22 @@ var Socket = (function () {
         this._socket.connect(ip, port);
     };
     p.onSocketOpen = function () {
-        var cmd = "Hello Egret WebSocket";
-        console.log("发送数据：" + cmd);
-        this._socket.writeUTF(cmd);
+        console.log("webSocket连接成功");
+        //        this._socket.writeUTF("connectCompleted");
     };
     p.onReceiveMessage = function (e) {
         var msg = this._socket.readUTF();
         console.log("收到数据：" + msg);
     };
     p.send = function (msg) {
-        console.log("连接成功，发送数据：" + msg);
-        this._socket.writeUTF(msg);
+        if (this._socket.connected) {
+            console.log("连接成功，发送数据：" + msg);
+            this._socket.writeUTF(msg);
+            this._socket.flush();
+        }
+        else {
+            console.log("WebSocket未连接成功");
+        }
     };
     return Socket;
 })();

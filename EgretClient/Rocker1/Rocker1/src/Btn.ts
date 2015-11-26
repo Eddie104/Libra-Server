@@ -6,6 +6,8 @@
 class Btn extends egret.DisplayObjectContainer {
 
     private _bmd: egret.Bitmap;
+    
+    private _isPressed: boolean = false;
 
     public constructor(resName: string) {
         super();
@@ -19,15 +21,21 @@ class Btn extends egret.DisplayObjectContainer {
     }
 
     private onTouchBegan(evt: egret.TouchEvent) {
-//        this._bmd.texture = RES.getRes("btn_down");
+        this._isPressed = true;
+        this.dispatchEvent(new egret.Event("pressed"));
     }
 
     private onTouchEnded(evt: egret.TouchEvent) {
-//        this._bmd.texture = RES.getRes("btn_normal");
-        this.dispatchEvent(new egret.Event("clicked"));
+        if(this._isPressed){
+            this._isPressed = false;
+            this.dispatchEvent(new egret.Event("released"));
+        }
     }
 
     private onTouchReleasedOutside(evt: egret.TouchEvent) {
-//        this._bmd.texture = RES.getRes("btn_normal");
+        if(this._isPressed) {
+            this._isPressed = false;
+            this.dispatchEvent(new egret.Event("releasedOut"));
+        }        
     }
 }
